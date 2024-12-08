@@ -1,0 +1,24 @@
+{
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "@types/node-schedule": "^2.1.7",
+    "concurrently": "^9.1.0",
+    "nodemon": "^3.1.7",
+    "typescript": "^5.7.2"
+  },
+  "name": "cronjobs",
+  "version": "0.0.1",
+  "description": "Cron jobs for qr app",
+  "main": "build/server.js",
+  "scripts": {
+    "build": "tsc",
+    "server": "node build/server.js",
+    "dev": "concurrently \"tsc --watch\" \"nodemon build/server.js\""
+  },
+  "author": "Dejan Aksovic",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "node-schedule": "^2.1.1"
+  }
+}
