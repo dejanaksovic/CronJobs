@@ -13,7 +13,7 @@
   "scripts": {
     "build": "tsc",
     "server": "node build/server.js",
-    "dev": "concurrently \"tsc --watch\" \"nodemon build/server.js\""
+    "dev": "concurrently \"tsc --watch\" \"nodemon --ignore ./build build/server.js\""
   },
   "author": "Dejan Aksovic",
   "license": "ISC",

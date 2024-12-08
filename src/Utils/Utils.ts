@@ -1,3 +1,5 @@
+import * as fs from "fs";
+
 export function assert(condition: Boolean | undefined, message?: string): void {
   if (!condition) {
     throw Error(message);
@@ -25,5 +27,17 @@ export async function sendDevEmail(subject: string, content: string) {
     const data = await res.json();
   } catch (err: any) {
     console.log("Mail service not working");
+  }
+}
+
+export async function saveToBackupFolder(filename: string, data: string) {
+  let path:string = `./build/backups/${filename}.json`;
+
+  try {
+    fs.writeFileSync(path, data);
+    console.log("writing to file");
+  }
+  catch(err: any) {
+    console.log(err);
   }
 }

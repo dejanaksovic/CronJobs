@@ -1,5 +1,4 @@
-import { ITransaction } from "../interfaces/TransactionIntefraces";
-import { assert, sendDevEmail } from "../Utils/Utils";
+import { saveToBackupFolder, sendDevEmail } from "../Utils/Utils";
 
 export async function checkServerUp() {
   try {
@@ -16,14 +15,22 @@ export async function checkServerUp() {
 
 export async function doBackup() {
   try {
-    const res: Response = await fetch(`${process.env.SERVICE_URL}/transactions/`, {
+    const res: Response = await fetch(`${process.env.SERVICE_URL}/transactions/daily`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
         authorization: `${process.env.DEV_KEY}`,
       },
     });
-  } catch (err: any) {
+
+    const data = await res.json();
+
+    const date:Date = new Date();
+    const dateReadableFormat: string = `${date.getMonth()}.${date.getDate() + 1}.${date.getFullYear()}`;
+
+    saveToBackupFolder(dateReadableFormat, JSON.stringify(data.res));
+  }
+  catch (err: any) {
     console.log(err);
     sendDevEmail("MAILING SERVICE FAILED", `Email service failed ${err.message}`);
   }
