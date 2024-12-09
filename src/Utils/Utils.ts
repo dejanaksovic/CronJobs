@@ -7,9 +7,6 @@ export function assert(condition: Boolean | undefined, message?: string): void {
 }
 
 export async function sendDevEmail(subject: string, content: string) {
-  assert(Boolean(process.env.COMM_SERVICE_URL), "URL for mailing service must be given");
-  assert(Boolean(process.env.DEV_EMAIL), "Dev address must be given");
-
   try {
     const res: Response = await fetch(`${process.env.COMM_SERVICE_URL}/mail`, {
       method: "POST",

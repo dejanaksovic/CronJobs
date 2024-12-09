@@ -1,14 +1,18 @@
 import { saveToBackupFolder, sendDevEmail } from "../Utils/Utils";
 
-export async function checkServerUp() {
+export async function checkServerUp(): Promise<boolean> {
   try {
     const res: Response = await fetch(`${process.env.SERVICE_URL}`);
     if (!res.ok) {
-      sendDevEmail("API SERVICE FAILED", `Api service failed at ${new Date()}`);
+      await sendDevEmail("API SERVICE FAILED", `Api service failed at ${new Date()}`);
+      return false;
     }
   } catch (err: any) {
     sendDevEmail("API SERVICE FAILED", `Api service failed at ${new Date()}\n${err?.message}`);
+    return false;
   }
+
+  return true;
 }
 
 
@@ -31,6 +35,6 @@ export async function doBackup() {
   }
   catch (err: any) {
     console.log(err);
-    sendDevEmail("MAILING SERVICE FAILED", `Email service failed ${err.message}`);
+    await sendDevEmail("MAILING SERVICE FAILED", `Email service failed ${err.message}`);
   }
 }
