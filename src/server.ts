@@ -9,7 +9,7 @@ dotenv.config();
 saveToBackupFolder("test", JSON.stringify({ message: "Just testing lmao" }));
 
 const scheduleServiceHealtyCheck = scheduler.scheduleJob("*/15 * * * *", checkServerUp);
-const sceduleDailyBackup = scheduler.scheduleJob("59 11 * * *", doBackup);
+const sceduleDailyBackup = scheduler.scheduleJob("50 23 * * *", doBackup);
 
 http
   .createServer((req: http.IncomingMessage, res: http.ServerResponse<http.IncomingMessage>) => {
